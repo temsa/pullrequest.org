@@ -107,75 +107,24 @@ C'est aussi un langage de la famille de [Lisp][7].
 
 A quoi ça ressemble ? Accrochez-vous. Voila une ligne qui permet d'additionner 2 à 2 tous les éléments d'un tableau, et de renvoyer le tableau résultat.
 
-<pre style="margin-left: 40px;">(map fn[it] (+ it 2) [1 2 3])</pre>
+    (map fn[it] (+ it 2) [1 2 3])
 
 Et la console interactive affichera [3 4 5]
 
-<table border="1" cellpadding="1" cellspacing="1" style="width: 688px; height: 63px;">
-  <tbody>
-    <tr>
-      <td style="text-align: center;">
-         
-      </td>
-      
-      <td style="text-align: center;">
-        Java
-      </td>
-      
-      <td style="text-align: center;">
-        Clojure
-      </td>
-    </tr>
-    
-    <tr>
-      <td>
-        déclarer une function
-      </td>
-      
-      <td>
-        <pre>
-				static retour nomFonction(arg1) {instructions}</pre>
-      </td>
-      
-      <td>
-        <pre>
-				fn[arg1] intructions</pre>
-      </td>
-    </tr>
-    
-    <tr>
-      <td>
-        invoquer une fonction
-      </td>
-      
-      <td>
-        <pre>
-				nomFonction(arg1 arg2);</pre>
-      </td>
-      
-      <td>
-        <pre>
-				(nomFonction arg1 arg2)</pre>
-      </td>
-    </tr>
-    
-    <tr>
-      <td>
-        utiliser un opérateur
-      </td>
-      
-      <td>
-        <pre>
-				var+2</pre>
-      </td>
-      
-      <td>
-        <pre>
-				(+ var 2)</pre>
-      </td>
-    </tr>
-  </tbody>
-</table>
+### Déclarer une function
+
+*   Java: `static retour nomFonction(arg1) {instructions}`
+*   Clojure: `fn[arg1] intructions`
+
+### Invoquer une function
+
+*   Java: `nomFonction(arg1 arg2);`
+*   Clojure: `(nomFonction arg1 arg2)`
+
+### Utiliser un opérateur
+
+*   Java: `var+2`
+*   Clojure: `(+ var 2)`
 
 Je ne vous le fait pas dire, c'est illisible lorsqu'on a pas l'habitude. Ca fait donc assez peur au début. Mais retenez juste ceci :
 
