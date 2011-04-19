@@ -1,31 +1,31 @@
-Title: Web Socket : Are you plugged ?
+ï»¿Title: Web Socket : Are you plugged ?
 Author: Damien Feugas
 Date: Apr 19 2011 11:46:00 GMT-0200 (CDT)
 Categories: java, javascript, mythicforge, graniteds, jetty, JMS, STOMP, websocket
 
 # Un petit peu de contexte
 
-Depuis à peu près deux ans, je réalise un [MMORPG][1] gratuit et OpenSource avec un serveur Java et eux clients Flex (un d'administration et un de jeu).
+Depuis Ã  peu prÃ¨s deux ans, je rÃ©alise un [MMORPG][1] gratuit et OpenSource avec un serveur Java et eux clients Flex (un d'administration et un de jeu).
 
-J'ai utilisé le merveilleux framework [GraniteDS][2] qui est un pont entre le java et flex, comme le BlazeDS d'Adobe, avec plus de fonctionnalités encore.  
+J'ai utilisÃ© le merveilleux framework [GraniteDS][2] qui est un pont entre le java et flex, comme le BlazeDS d'Adobe, avec plus de fonctionnalitÃ©s encore.  
   
-Malheureusement, j'ai surtout besoin de flexibilité coté client de jeu (tout le GameDesign est configurable via l'admin), et j'ai décidé finalement de tout réécrire en technologies Html 5/Css 3/Js.
+Malheureusement, j'ai surtout besoin de flexibilitÃ© cotÃ© client de jeu (tout le GameDesign est configurable via l'admin), et j'ai dÃ©cidÃ© finalement de tout rÃ©Ã©crire en technologies Html 5/Css 3/Js.
 
-Les 3 grandes fonctionnalités de GraniteDS qui doivent donc être remplacées sont les suivantes:
+Les 3 grandes fonctionnalitÃ©s de GraniteDS qui doivent donc Ãªtre remplacÃ©es sont les suivantes:
 
-1.  L'invocation distante de méthodes Java, remplacée par une API REST. Chaque méthode du serveur est une url qui produit et consomme du XML ou du JSON. J'ai choisi [Jersey ][3]pour ça (implémentation de référence de la spec JAX-RS), et expliqué la migration dans un article précédent.  
+1.  L'invocation distante de mÃ©thodes Java, remplacÃ©e par une API REST. Chaque mÃ©thode du serveur est une url qui produit et consomme du XML ou du JSON. J'ai choisi [Jersey ][3]pour Ã§a (implÃ©mentation de rÃ©fÃ©rence de la spec JAX-RS), et expliquÃ© la migration dans un article prÃ©cÃ©dent.  
      
-2.  Le MCV client "tide", remplacé par [RESTHub-js][4], un petit framework client en javascript.  
+2.  Le MCV client "tide", remplacÃ© par [RESTHub-js][4], un petit framework client en javascript.  
      
-3.  Le push serveur : les clients flex sont constamment connecté au serveur qui leur envoi les mise à jour déclenchée par les autres joueurs. Ce billet explique comment j'ai remplacé cette partie par l'utilisation des WebSockets.
+3.  Le push serveur : les clients flex sont constamment connectÃ© au serveur qui leur envoi les mise Ã  jour dÃ©clenchÃ©e par les autres joueurs. Ce billet explique comment j'ai remplacÃ© cette partie par l'utilisation des WebSockets.
  
 # Alors, comment on joue ?
 
-Les Web sockets sont juste... des socket. C'est un canal connecté entre le navigateur et le serveur, ni plus, ni moins. Vous avez donc besoin d'un navigateur récent (Chrome, IE9 or Firefox 4 correctement configuré), et d'un server.
+Les Web sockets sont juste... des socket. C'est un canal connectÃ© entre le navigateur et le serveur, ni plus, ni moins. Vous avez donc besoin d'un navigateur rÃ©cent (Chrome, IE9 or Firefox 4 correctement configurÃ©), et d'un server.
 
-Il y a quelques serveur Java qui implément le protocole : jWebSocket, Kaazing, webbit... Mais aucun d'entre eux n'est aussi un conteneur de Servlet, la base de nos serveurs java. A l'exception de [Jetty][5].  
+Il y a quelques serveur Java qui implÃ©mentent le protocole : jWebSocket, Kaazing, webbit... Mais aucun d'entre eux n'est aussi un conteneur de Servlet, la base de nos serveurs java. A l'exception de [Jetty][5].  
   
-Sans rentrer dans les détails, Jetty est un serveur Http+Servlet+WebSocket très puissant écrit en java, qui peut être utilisé en mode embarqué ou standalone. Il implémente le brouillon de la norme Websocket depuis un petit moment, et [plutôt simplement][6].
+Sans rentrer dans les dÃ©tails, Jetty est un serveur Http+Servlet+WebSocket trÃ¨s puissant Ã©crit en java, qui peut Ãªtre utilisÃ© en mode embarquÃ© ou standalone. Il implÃ©mente le brouillon de la norme Websocket depuis un petit moment, et [plutÃ´t simplement][6].
 
 	public class WebSocketDummyServlet extends WebSocketServlet{
 		
@@ -72,7 +72,7 @@ Sans rentrer dans les détails, Jetty est un serveur Http+Servlet+WebSocket très 
 		}
 	}
 
-Plutôt facile, non ? Cette "espèce de servlet" doit être déclarée dans le descripteur web.xml :
+PlutÃ´t facile, non ? Cette "espÃ¨ce de servlet" doit Ãªtre dÃ©clarÃ©e dans le descripteur web.xml :
 
     <servlet>
         </servlet-name>
@@ -85,18 +85,18 @@ Plutôt facile, non ? Cette "espèce de servlet" doit être déclarée dans le descri
     </servlet-mapping>
 
 
-Vous avez besoin d'envoyer des messages à tous les clients connecté ? Vous n'avez qu'a stocker les instance de  DummyWebSocket créées, et ajouter une méthode qui utilisera _outbound.sendMessage().
+Vous avez besoin d'envoyer des messages Ã  tous les clients connectÃ© ? Vous n'avez qu'a stocker les instance de  DummyWebSocket crÃ©Ã©es, et ajouter une mÃ©thode qui utilisera _outbound.sendMessage().
 
-# Je suis connecté ! Mais je peux rien faire...
+# Je suis connectÃ© ! Mais je peux rien faire...
 
-Comme je disais, vous n'avez qu'un tuyau connecté. Il transporte des chaîne de caractères et des bits. C'est efficace, mais pas vraiment utilisable en tant que tel.
+Comme je disais, vous n'avez qu'un tuyau connectÃ©. Il transporte des chaÃ®ne de caractÃ¨res et des bits. C'est efficace, mais pas vraiment utilisable en tant que tel.
 
-Il est donc nécessaire d'implémenter un protocole au dessus de ce tuyau. Ce dernier dépendra de vos besoin. Une application de messagerie instantannée ? Utilisez XMPP. Une application de streaming ? Pourquoi pas RTP. Un jeu FPS ? créez  votre propre protocole.  
-GraniteDS proposait un mécanisme de publication-souscription de POJO sérialisés, proche de JMS. Heureusement, il existe un équivalent parfait : [STOMP][7].
+Il est donc nÃ©cessaire d'implÃ©menter un protocole au dessus de ce tuyau. Ce dernier dÃ©pendra de vos besoin. Une application de messagerie instantannÃ©e ? Utilisez XMPP. Une application de streaming ? Pourquoi pas RTP. Un jeu FPS ? crÃ©ez  votre propre protocole.  
+GraniteDS proposait un mÃ©canisme de publication-souscription de POJO sÃ©rialisÃ©s, proche de JMS. Heureusement, il existe un Ã©quivalent parfait : [STOMP][7].
 
-Une minute ! Google donne quelques résultat pour "STOMP Websocket Java". Notamment ActiveMQ, RabittMQ et HornetMQ, fameux brokers JMS. Utilisons les. Enfin non : c'est vraiment de l'overkill : je n'avais pas besoin de toute cette mécanique complexe...
+Une minute ! Google donne quelques rÃ©sultat pour "STOMP Websocket Java". Notamment ActiveMQ, RabittMQ et HornetMQ, fameux brokers JMS. Utilisons les. Enfin non : c'est vraiment de l'overkill : je n'avais pas besoin de toute cette mÃ©canique complexe...
 
-Alors j'ai implémenté le protocole STOMP (sans la gestion transactionnelle) et ça m'a pris deux jours. En fait, STOMP est vraiment très simple (tout est en texte, et les sauts de lignes sont significatifs) :
+Alors j'ai implÃ©mentÃ© le protocole STOMP (sans la gestion transactionnelle) et Ã§a m'a pris deux jours. En fait, STOMP est vraiment trÃ¨s simple (tout est en texte, et les sauts de lignes sont significatifs) :
 
 **client X, client Y :**
 	
@@ -122,7 +122,7 @@ Alors j'ai implémenté le protocole STOMP (sans la gestion transactionnelle) et ç
 	hello everyone !
 	^@
 
-**et le client Y reçoit:**
+**et le client Y reÃ§oit:**
 	
 	MESSAGE
 	destination:/topic-1
@@ -131,7 +131,7 @@ Alors j'ai implémenté le protocole STOMP (sans la gestion transactionnelle) et ç
 	hello everyone !
 	^@
 
-# Et coté client justement ?
+# Et cotÃ© client justement ?
 
 Le client en javascript est vraiment simple :
 
@@ -150,25 +150,26 @@ Le client en javascript est vraiment simple :
 
 	_onmessage: function(message) {}
   
-Je n'ai pas encore choisi d'implémentation STOMP coté client et dès que je l'aurai fait, je modifierai cet article.  
+Je n'ai pas encore choisi d'implÃ©mentation STOMP cotÃ© client et dÃ¨s que je l'aurai fait, je modifierai cet article.  
   
-Juste un avertissement : nous l'avons testé à travers des proxies, et ça fonctionne très bien.  
-Pas de déconnexion intempestives, pas de ralentissements.  
-Mais cela nécessite que le client envoi un keep-alive à travers le socket. Le serveur n'a pas besoin de répondre.  
+Juste un avertissement : nous l'avons testÃ© Ã  travers des proxies, et Ã§a fonctionne trÃ¨s bien.  
+Pas de dÃ©connexion intempestives, pas de ralentissements.  
+Mais cela nÃ©cessite que le client envoi un keep-alive Ã  travers le socket. Le serveur n'a pas besoin de rÃ©pondre.  
   
-Un message de keep-alive toutes les 10 secondes marche bien, mais j'imagine que cela dépend des configuration des proxies et firewall traversés.
+Un message de keep-alive toutes les 10 secondes marche bien, mais j'imagine que cela dÃ©pend des configuration des proxies et firewall traversÃ©s.
 
-# J'adore ! Où est le code ?
+# J'adore ! OÃ¹ est le code ?
 
-Actuellement, il est accessible sur bitbucket (licencié en LGPL-3):
+Actuellement, il est accessible sur bitbucket (licenciÃ© en LGPL-3):
 
 *   [Les objets Jetty][8] et leurs tests unitaires
-*   [L'implémentation Stomp][9] et ses [tests unitaires][10]
+*   [L'implÃ©mentation Stomp][9] et ses [tests unitaires][10]
 *   Le client [Java websocket][11] (classes WebSocketClient, IMessageReceiver, StompWebSocketListener)
 
-Vous aviez deviné, je suis un fanatique du TDD. J'ai donc réaliser un client Websocket en Java. En effet mes tests unitaire lance le server dans un Jetty en mémoire, et agissent comme s'ils étaient des navigateurs.
+Vous aviez devinÃ©, je suis un fanatique du TDD. J'ai donc rÃ©aliser un client Websocket en Java. En effet mes tests unitaire lance le server dans un Jetty en mÃ©moire, et agissent comme s'ils Ã©taient des navigateurs.
 
-Dès que je serai un peu plus disponible, je paquagerai l'ensemble indépendamment de mon jeu, sous la forme d'un projet OpenSource. En effet, il y a très peu de dépendances entre les deux, et je pense que cela peut être réutilisé dans d'autres contextes... Peut être par vous :)  
+DÃ¨s que je serai un peu plus disponible, je paquagerai l'ensemble indÃ©pendamment de mon moteur de jeu, et je le reverserai Ã  [RESThub-js][12]. 
+En effet, il y a trÃ©s peu de dÃ©pendances entre les deux, et je pense que cela peut Ãªtre rÃ©utilisÃ© dans d'autres contextes... Peut Ãªtre par vous :)  
  
  [1]: https://bitbucket.org/feugy/myth/wiki/Home
  [2]: http://www.graniteds.org/confluence/pages/viewpage.action?pageId=229378
@@ -181,3 +182,4 @@ Dès que je serai un peu plus disponible, je paquagerai l'ensemble indépendamment
  [9]: https://bitbucket.org/feugy/myth/src/1a56ca416b5a/chronos-webapp/src/main/java/org/mythicforge/tools/stomp/
  [10]: https://bitbucket.org/feugy/myth/src/1a56ca416b5a/chronos-webapp/src/test/java/org/mythicforge/tools/stomp/
  [11]: https://bitbucket.org/feugy/myth/src/1a56ca416b5a/chronos-webapp/src/test/java/org/mythicforge/tools/
+ [12]: https://bitbucket.org/feugy/myth/src/1a56ca416b5a/chronos-webapp/src/test/java/org/mythicforge/tools/
