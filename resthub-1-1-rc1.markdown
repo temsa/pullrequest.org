@@ -7,7 +7,7 @@ A l'occasion de la sortie de la première Release Candidate de [RESThub](http://
 
 Premier changement majeur, la séparation en 2 projets distincts (mais complémentaires) :
 
-*   Une stack Java basée sur Spring 3 et des webservices REST qui vise à fournir des classes génériques réutilisables et des principes d'architectures pour développer plus rapidement vos applications Java.
+*   Une stack Java basée sur Spring 3 et des webservices REST qui visent à fournir des classes génériques réutilisables et des principes d'architectures pour développer plus rapidement vos applications Java.
 *   Une stack Javascript basée sur jQuery, visant à fournir l'outillage et les repères nécessaires au développement d'applications professionnelles (cf. l'excellent article [Building Large-Scale jQuery Applications](http://addyosmani.com/blog/large-scale-jquery/)). Elle peut se câbler sur n'importe quelle technologie serveur qui expose des webservices REST (Java, PHP, Python, Ruby, NodeJS).
  Le projet est désormais hébergé sur 2 dépôts différents ([resthub](https://bitbucket.org/ilabs/resthub/) et [resthub-js](https://bitbucket.org/ilabs/resthub-js/)), ce qui permettra de les faire évoluer de façon indépendante, et d'encourager l'utilisation de la stack JS dans d'autres contextes.
 
