@@ -182,4 +182,4 @@ En effet, il y a trés peu de dépendances entre les deux, et je pense que cela 
  [9]: https://bitbucket.org/feugy/myth/src/1a56ca416b5a/chronos-webapp/src/main/java/org/mythicforge/tools/stomp/
  [10]: https://bitbucket.org/feugy/myth/src/1a56ca416b5a/chronos-webapp/src/test/java/org/mythicforge/tools/stomp/
  [11]: https://bitbucket.org/feugy/myth/src/1a56ca416b5a/chronos-webapp/src/test/java/org/mythicforge/tools/
- [12]: https://bitbucket.org/feugy/myth/src/1a56ca416b5a/chronos-webapp/src/test/java/org/mythicforge/tools/
+ [12]: https://bitbucket.org/ilabs/resthub-js/
