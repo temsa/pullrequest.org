@@ -1,7 +1,7 @@
 Title: MIX-IT Un départ sur les chapeaux de roues
 Author: Damien Feugas
 Date: Apr 19 2011 16:28:00 GMT-0200 (CDT)
-Categories: conférence,  mix-it, agile, spock, tests, tdd, bdd, ergonomie, clojure, machinel Learning, mahout, devops
+Categories: conference,  mix-it, agile, spock, tests, tdd, bdd, ergonomie, clojure, machine-learning, mahout, devops
 
 Mardi 5 avril, j'ai eu le plaisir d'assister à un 'mini-Devoxx' lyonnais : Mix-IT (lire, mixitée)
 
